@@ -4,7 +4,11 @@
 };
 
 #resultDisplay {
-    text-align: center;
-    font-size: xx-large;
-    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+
+    font-weight: bold;
+    font-size: 24px;
 };
