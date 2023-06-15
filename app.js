@@ -1,123 +1,86 @@
-// //event.listener watch event change -"click" in userChoice [];
-// //const userPick = click.value;
-// //let botChoice = [paper, scissor, rock], let botPick = botChoice[].random;
-// //compare botPick to userPick: const = possibleResult{(userPic = "scissor" && botPic = "scissor"): "it's a tie"...etc.}; 
-// //return "You beat the Bot!" or return "How can you loose to the bot? Try again!" or "It's a tie!" in the <div id="resultDisplay"></div> area;
 
+// Selects all <li> elements and assigns them to the variable userChoice
 const userChoice = document.querySelectorAll("li");
 
+// Defines an object called possibleResults that stores the possible outcomes of the game
 const possibleResults = {
   rock: {
     rock: "It's a tie!",
-    paper: "How can you lose to the bot? Try again!",
+    paper: "You lost to the bot. Try again!",
     scissor: "You beat the bot!"
   },
   paper: {
     rock: "You beat the bot!",
     paper: "It's a tie!",
-    scissor: "How can you lose to the bot? Try again!"
+    scissor: "You lost to the bot. Try again!"
   },
   scissor: {
-    rock: "How can you lose to the bot? Try again!",
+    rock: "You lost to the bot. Try again!",
     paper: "You beat the bot!",
     scissor: "It's a tie!"
   }
 };
 
+// function called getRandomChoice that randomly selects and returns a choice from the choices array
 function getRandomChoice() {
   const choices = ["rock", "paper", "scissor"];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
+//display the result in the <id=resultDisplay> element, and append the reseting button to it. 
 function displayResult(result) {
     const resultDisplay = document.getElementById("resultDisplay");
     resultDisplay.innerHTML = `
-    <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
-    <p style="font-weight: bold; font-size: 24px;">${result}</p>
+    <div style="display: block; margin: 0 auto; padding-top: 10rem; padding-left: 20rem;">
+    <p style="font-weight: bold; font-size: 50px;">${result}</p>
     </div>
     `;
+    const resetButton = document.createElement("button");
+    resetButton.id = "reset";
+    resetButton.textContent = "Play Again!";
+    resetButton.style.fontWeight = "bold";
+    // resetButton.style.marginLeft = "20rem";
+    //非常奇怪，只有设置为block的时候，才能用margin居中显示，但button本来就应该是块级元素
+    resetButton.style.display = "block";
+    resetButton.style.margin = "0 auto";
+    resetButton.style.fontSize = "30px";
+    // resetButton.innerHTML = `
+    // <button id="reset" style="font-weight: bold; font-size: 10px;">Play Again!</button>
+    // `;
+    resultDisplay.appendChild(resetButton);  
 }
 
+// Iterates over each element in the userChoice array using the forEach method
 userChoice.forEach((choice) => {
   choice.addEventListener("click", () => {
     const userPick = choice.id;
     const botPick = getRandomChoice();
+    // Retrieves the result from the possibleResults object based on the user's and bot's picks
     const result = possibleResults[userPick][botPick];
+    // Remove all the pictures from the page 
     document.getElementById('choice').innerHTML = "";
+    
     displayResult(result);
   });
 });
 
+//bond event listener to "document"(whole page), to catch the event of clicking "reset" button 
+document.addEventListener("click", function(event) {
+  if (event.target.id === "reset") {
+    location.reload();
+  }
+});
 
-// const userChoice = document.querySelectorAll("li");
+//Animation when mouse over pictures
+userChoice.forEach((choice) => {
+  choice.addEventListener("mouseover", () => {
+    choice.classList.add("shake");
+  });
 
-// const possibleResults = {
-//     rock: {
-//         rock: "It's a tie!",
-//         paper: "How can you lose to the bot? Try again!",
-//         scissor: "You beat the bot!"
-//     },
-//     paper: {
-//         rock: "You beat the bot!",
-//         paper: "It's a tie!",
-//         scissor: "How can you lose to the bot? Try again!"
-//     },
-//     scissor: {
-//         rock: "How can you lose to the bot? Try again!",
-//         paper: "You beat the bot!",
-//         scissor: "It's a tie!"
-//     }
-// };
-
-// function getRandomChoice() {
-//     const choices = ["rock", "paper", "scissor"];
-//     const randomChoice = choices.random();
-//     return randomChoice;
-// }
-
-// function displayResult(result) {
-//     const resultDisplay = document.getElementById("resultDisplay");
-//     resultDisplay.textContent = result;
-
-//     const resetContainer = document.getElementById("reset");
-//     resetContainer.innerHTML = ""; 
-
-//     const resetButton = document.createElement("button");
-//     resetButton.textContent = "Do it again";
-//     resetButton.addEventListener("click", resetGame);
-//     resetContainer.appendChild(resetButton);
-//     }
-
-// function resetGame() {
-//     const choiceContainer = document.getElementById("choice");
-//     choiceContainer.innerHTML = `
-//         <li id="rock"><img src="rock.png" alt="rock" width="400" height="400"></li>
-//         <li id="scissor"><img src="scissor.png" alt="scissor" width="400" height="400"></li>
-//         <li id="paper"><img src="paper.png" alt="paper" width="400" height="400"></li>
-//     `;
-
-//     const resetContainer = document.getElementById("reset");
-//     resetContainer.innerHTML = "";
-
-//     userChoice.forEach((choice) => {
-//         choice.addEventListener("click", () => {
-//         const userPick = choice.id;
-//         const botPick = getRandomChoice();
-//         const result = possibleResults[userPick][botPick];
-//         displayResult(result);
-//         });
-//     });
-// }
-
-// userChoice.forEach((choice) => {
-//     choice.addEventListener("click", () => {
-//         const userPick = choice.id;
-//         const botPick = getRandomChoice();
-//         const result = possibleResults[userPick][botPick];
-           
-//         displayResult(result);
-//     });
-// });
+  choice.addEventListener("mouseout", () => {
+    choice.classList.remove("shake");
+  });
+});
 
 
