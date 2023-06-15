@@ -1,0 +1,10 @@
+#choice {
+    display: flex;
+    padding-top: 10rem;
+};
+
+#resultDisplay {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 400;
+};
