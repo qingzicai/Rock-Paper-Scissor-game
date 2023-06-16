@@ -32,23 +32,11 @@ function getRandomChoice() {
 function displayResult(result) {
     const resultDisplay = document.getElementById("resultDisplay");
     resultDisplay.innerHTML = `
-    <div style="display: block; margin: 0 auto; padding-top: 10rem; padding-left: 20rem;">
-    <p style="font-weight: bold; font-size: 50px;">${result}</p>
+    <div class = "style">${result}</p>
     </div>
     `;
-    const resetButton = document.createElement("button");
-    resetButton.id = "reset";
-    resetButton.textContent = "Play Again!";
-    resetButton.style.fontWeight = "bold";
-    // resetButton.style.marginLeft = "20rem";
-    //非常奇怪，只有设置为block的时候，才能用margin居中显示，但button本来就应该是块级元素
-    resetButton.style.display = "block";
-    resetButton.style.margin = "0 auto";
-    resetButton.style.fontSize = "30px";
-    // resetButton.innerHTML = `
-    // <button id="reset" style="font-weight: bold; font-size: 10px;">Play Again!</button>
-    // `;
-    resultDisplay.appendChild(resetButton);  
+    const resetButton = document.getElementById("try-again");
+    resetButton.style = "display: block" 
 }
 
 // Iterates over each element in the userChoice array using the forEach method
@@ -67,7 +55,7 @@ userChoice.forEach((choice) => {
 
 //bond event listener to "document"(whole page), to catch the event of clicking "reset" button 
 document.addEventListener("click", function(event) {
-  if (event.target.id === "reset") {
+  if (event.target.id === "try-again") {
     location.reload();
   }
 });

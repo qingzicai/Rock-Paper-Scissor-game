@@ -8,3 +8,12 @@
 .shake {
     animation: shake 0.1s infinite;
 }
+
+style {
+display: block;
+margin: 0 auto; 
+padding-top: 10rem; 
+padding-left: 20rem;
+font-weight: bold; 
+font-size: 50px;
+}
